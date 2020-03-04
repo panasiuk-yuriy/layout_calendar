@@ -1,3 +1,42 @@
+@import "variables";
+
 body {
   margin: 0;
+}
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 0 auto;
+  width: 710px;
+}
+
+$days: 28,29,30,31;
+
+@each $day in $days {
+  .calendar-#{$day} {
+    @for $i from 1 through $day {
+      div:nth-child(#{$i}) {
+        @include baseSize;
+      }
+      div:nth-child(#{$i})::before {
+        content: "#{$i}";
+      }
+      div:nth-child(#{$i}):hover {
+        background-color: pink;
+        transform: translateY(-20px);
+        transition: 0.5s;
+      }
+    }
+  }
+}
+
+$week: (mon: 0, tue: 1, wed: 2, thu: 3, fri: 4, sat: 5, sun: 6);
+
+@each $day, $n in $week {
+  .calendar-#{$day} div:first-child {
+    margin-left: ($n * 101px);
+  }
+
 }
