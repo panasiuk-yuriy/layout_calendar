@@ -16,38 +16,43 @@ body {
     margin: 0 1px 1px 0;
     background-color: #eee;
     text-align: center;
-    line-height: 100px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 30px;
     box-sizing: border-box;
-  }
+    height: 100px;
+    width: 100px;
+    border: 1px solid;
+    transition: 0.5s;
+    display: none;
 
-  @each $day, $dayNmb in $week {
-    &-#{$day} div:first-child {
-      margin-left: ($dayNmb * 101px);
+    &:hover {
+      background-color: pink;
+      transform: translateY(-20px);
     }
   }
+}
 
-  @each $day in $days {
-    &-#{$day} {
+@each $day, $dayNmb in $week {
+  .calendar-#{$day} div:first-child {
+    margin-left: ($dayNmb * 101px);
+  }
+}
 
-      @for $i from 1 through $day {
-
-        div:nth-child(#{$i}) {
-          flex: 0 0 100px;
-          border: 1px solid;
-        }
-
-        div:nth-child(#{$i})::before {
-          content: "#{$i}";
-        }
-
-        div:nth-child(#{$i}):hover {
-          background-color: pink;
-          transform: translateY(-20px);
-          transition: 0.5s;
-        }
-      }
+@each $day in $days {
+  @for $i from 1 through $day {
+    .calendar-#{$day} div:nth-child(#{$i}) {
+      display: block;
     }
+  }
+}
+
+@for $i from 1 through 31 {
+  .calendar div:nth-child(#{$i})::before {
+    content: "#{$i}";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
   }
 }
