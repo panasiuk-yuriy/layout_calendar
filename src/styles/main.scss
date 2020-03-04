@@ -1,4 +1,5 @@
-@import "variables";
+$days: 28,29,30,31;
+$week: (mon: 0, tue: 1, wed: 2, thu: 3, fri: 4, sat: 5, sun: 6);
 
 body {
   margin: 0;
@@ -10,33 +11,43 @@ body {
   justify-content: flex-start;
   margin: 0 auto;
   width: 710px;
-}
 
-$days: 28,29,30,31;
+  & > div {
+    margin: 0 1px 1px 0;
+    background-color: #eee;
+    text-align: center;
+    line-height: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    box-sizing: border-box;
+  }
 
-@each $day in $days {
-  .calendar-#{$day} {
-    @for $i from 1 through $day {
-      div:nth-child(#{$i}) {
-        @include baseSize;
-      }
-      div:nth-child(#{$i})::before {
-        content: "#{$i}";
-      }
-      div:nth-child(#{$i}):hover {
-        background-color: pink;
-        transform: translateY(-20px);
-        transition: 0.5s;
+  @each $day, $dayNmb in $week {
+    &-#{$day} div:first-child {
+      margin-left: ($dayNmb * 101px);
+    }
+  }
+
+  @each $day in $days {
+    &-#{$day} {
+
+      @for $i from 1 through $day {
+
+        div:nth-child(#{$i}) {
+          flex: 0 0 100px;
+          border: 1px solid;
+        }
+
+        div:nth-child(#{$i})::before {
+          content: "#{$i}";
+        }
+
+        div:nth-child(#{$i}):hover {
+          background-color: pink;
+          transform: translateY(-20px);
+          transition: 0.5s;
+        }
       }
     }
   }
-}
-
-$week: (mon: 0, tue: 1, wed: 2, thu: 3, fri: 4, sat: 5, sun: 6);
-
-@each $day, $n in $week {
-  .calendar-#{$day} div:first-child {
-    margin-left: ($n * 101px);
-  }
-
 }
